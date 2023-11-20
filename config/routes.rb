@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post '/check_file_existence', to: 'files#check_file_existence'
+  post '/check_and_move_file', to: 'files#check_and_move_file'
 
-  
+
 end
