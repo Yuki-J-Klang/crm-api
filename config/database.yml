@@ -17,6 +17,7 @@ default: &default
   password: password
   host: db
 
+
 development:
   <<: *default
   database: api_development
