@@ -1,6 +1,8 @@
-class DeploymentController < ApplicationController
+requier 'json'
+
+module Deploy
     def deploy
-      deploy_command = "docker stack deploy -c #{Rails.root}/docker-compose.yml your-stack-name"
+      deploy_command = "docker stack deploy -c #{Rails.root}/docker-compose.yml #{file_name}"
       success = system(deploy_command)
   
       if success
@@ -14,7 +16,7 @@ class DeploymentController < ApplicationController
     private
   
     def save_deployment_info
-      service_name = `docker service ls --filter "name=your-stack-name_web" --format "{{.Name}}"`
+      service_name = `docker service ls --filter "name=#{file_name}" --format "{{.Name}}"`
       Deployment.create(service_name: service_name)
     end
-  end
+end
