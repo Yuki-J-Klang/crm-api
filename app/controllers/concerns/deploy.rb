@@ -1,7 +1,6 @@
 requier 'json'
-
 module Deploy
-    def deploy
+    def deploy_service(file_name)
       deploy_command = "docker stack deploy -c #{Rails.root}/docker-compose.yml #{file_name}"
       success = system(deploy_command)
   
@@ -12,7 +11,9 @@ module Deploy
         render json: { 'Deployment failed', status: 500 }
       end
     end
-  
+    
+    module_function :deploy_service
+
     private
   
     def save_deployment_info
