@@ -12,16 +12,13 @@ module Container
                 address = system(get_public_ip_address)
                 public_ip_address = { result: address }.to_json
                 render json: {
-                    "Service: #{service_name}, Ports: #{ports.join(', ')}",
-                    public_ip_address
+                    resalt: "Service: #{service_name}, Ports: #{ports.join(', ')}" ,public_ip_address
                 }if ports
             end
         rescue StandardError => e
-            render json: { 'Get information Failed', status: 500 }
+            render json: { message: 'Get information Failed', status: 500 }
         end
     end
-
-
 
     module_function :get_ports_from_docker_compose
 

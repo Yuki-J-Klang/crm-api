@@ -1,3 +1,7 @@
 Rails.application.routes.draw do
-  post 'launch_container', to: 'files#launch_container'
+  namespace "api" do
+    namespace "v1" do
+      post "launch", to:"files#launch"
+    end
+  end
 end
