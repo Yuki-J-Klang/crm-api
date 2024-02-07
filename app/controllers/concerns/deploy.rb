@@ -15,8 +15,8 @@ module Deploy
 
   private
   # データベースにデプロイ時の名前保存
-  # def save_deployment_info
+  # def save_scenario_info
   #   service_name = `docker service ls --filter "name=#{file_name}" --format "{{.Name}}"`
-  #   Deployment.create(service_name: service_name)
+  #   Scenarios.create(service_name: service_name)
   # end
 end

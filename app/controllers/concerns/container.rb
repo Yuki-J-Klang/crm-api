@@ -12,17 +12,23 @@ module Container
                 address = system(get_public_ip_address)
                 public_ip_address = { result: address }.to_json
                 render json: {
-                    resalt: "Service: #{service_name}, Ports: #{ports.join(', ')}" ,public_ip_address
+                    resalt: "Service: #{service_name}, Ports: #{ports}" ,public_ip_address
                 }if ports
             end
         rescue StandardError => e
             render json: { message: 'Get information Failed', status: 500 }
         end
     end
-
+    def launch_container
+        begin
+            build_container = "docker compose build --no-cache"
+            up_container = "docker compose up -d"
+            system(build_container)
+            system(up_container)
+        rescue StandardError => e
+            render json: { message: 'Launch Container Failed', status: 500 }
+        end
+    end
     module_function :get_ports_from_docker_compose
-
-    private
-    # ファイルのパスを指定して関数を呼び出し
-    get_ports_from_docker_compose('/path/to/docker-compose.yml')
+    module_function :launch_container
 end

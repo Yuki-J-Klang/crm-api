@@ -12,10 +12,11 @@ class Api::V1::FilesController < ApplicationController
       # folder_nameでDocker Swarmにデプロイ
       Deploy.deploy_service(folder_params)
       # port番号、指定ノード先のIpアドレス取得
+      Container.launch_container
       Container.get_ports_from_docker_compose("#{Rails.root}/docker-compose.yml")
-      render json: { message: "見つかっていはいます。" }
+      render json: { message: "起動しました。", status: 200 }
     else
-      render json: { message: folder_params, status: 500}
+      render json: { message: folder_params, status: 500 }
     end
   end
     
@@ -23,7 +24,7 @@ class Api::V1::FilesController < ApplicationController
 
   def folder_params
     #リクエストbodyからfile_nameをjsonで受け取る
-    params.permit(:file_name)
+    params.permit(:scenario_name)
   end
 
   def move_to_directory(folder_name)
